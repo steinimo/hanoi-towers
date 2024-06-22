@@ -1,9 +1,6 @@
 name: CI Pipeline Hanoi Towers
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -18,7 +15,7 @@ jobs:
       HANOI_FRONTEND_URL: ${{ vars.HANOI_FRONTEND_URL }}
       HANOI_BACKEND_URL: ${{ vars.HANOI_BACKEND_URL }}
     steps:
-     - name: Checkout
+     - name: Checkout Repository
        uses: actions/checkout@v4.1.7
      - name: Set up .env files
        run: |
@@ -60,3 +57,11 @@ jobs:
        with:
          file_path: './results'
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     - name: Fail if results file exists
+       run: |
+         if [ -f "./results" ]; then
+           echo "Results file with accessibility issues exists - Details in PR-comment. Failing the workflow."
+           exit 1
+         else
+           echo "No errors, be sure to still check manually for accessibility ;)"
+         fi
