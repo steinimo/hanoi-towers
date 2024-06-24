@@ -31,7 +31,7 @@ fun <Id> ModalLayer(
                 display(DisplayStyle.Flex)
                 flexDirection(FlexDirection.Column)
                 height(100.vh)
-                backgroundColor(Color.black)
+                backgroundColor(Color.green)
                 opacity(0.5)
                 if(bottomUp) {
                     justifyContent(JustifyContent.FlexEnd)
